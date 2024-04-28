@@ -11,9 +11,24 @@ class Logica:
         return False
     
     def validarContraseña(self,contraseñaSegunda):
-        if not self.nombre == "":
+        if self.nombre != "":
+            if self.contraseña != "":
+                if self.contraseña == contraseñaSegunda:
+                    c = BaseDeDatos()
+                    c.agregarUsuario(self.nombre,self.contraseña)
+                    return True
+        return False
+    
+    def validarUserBD(self):
+        c = BaseDeDatos()
+        if c.buscarNombre(self.nombre):
+            return True
+        return False
+    
+    def cambiarContraseñaBD(self,contraseñaSegunda):
+        if self.contraseña != "":
             if self.contraseña == contraseñaSegunda:
                 c = BaseDeDatos()
-                c.agregarUsuario(self.nombre,self.contraseña)
+                c.ActualizarContraseña(self.nombre,self.contraseña)
                 return True
         return False

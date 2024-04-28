@@ -6,12 +6,16 @@ import ventanaLogin
 def confirmarRegistro():
     # Aquí se asume que tienes una clase Logica que está correctamente implementada
     c = Logica(entradaNombre.get(), entradaContraseña.get())
-    if c.validarContraseña(entradaContraseñaConfirmar.get()):
-        messagebox.showinfo("Creacion","Usuario registrado con exito")
-        ventana.destroy()
-        ventanaLogin.ventanaLogin()
+    if not c.validarUserBD():
+        if c.validarContraseña(entradaContraseñaConfirmar.get()):
+            messagebox.showinfo("Creacion","Usuario registrado con exito")
+            ventana.destroy()
+            ventanaLogin.ventanaLogin()
+        else:
+            messagebox.showerror("Error" , "Las contraseñas no coinciden o los datos no pueden estar vacios")
     else:
-        messagebox.showerror("Error" , "Las contraseñas no coinciden o los datos no pueden estar vacios")
+        messagebox.showerror("Error", "El usuario ya existe")
+
 
 def ventanaRegistro():
     global entradaNombre, entradaContraseña, entradaContraseñaConfirmar, ventana

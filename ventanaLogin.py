@@ -3,6 +3,7 @@ import tkinter as tk
 from logica import Logica
 from ventanaPrincipal import *
 import ventanaRegistro
+import ventanaCambioContraseña
 
 ventana = None
 intento = 0
@@ -10,6 +11,10 @@ intento = 0
 def Registro():
     ventana.destroy()
     ventanaRegistro.ventanaRegistro()
+
+def CambioContraseña():
+    ventana.destroy()
+    ventanaCambioContraseña.ventanaCambio()
 
 def login():
     global intento
@@ -23,15 +28,18 @@ def login():
     else:
         if intento >= 3:
             messagebox.showerror("Error", "Número máximo de intentos alcanzado")
-            ventana.destroy()
+            botonRegistro.grid_forget()
+            botonLogin.grid_forget()
+            botonCambio = ttk.Button(ventana, text="olvide mi contraseña" , command=CambioContraseña)
+            botonCambio.grid(row=3, column=1, padx=(0, 0), pady=5)
         else:
             messagebox.showwarning("Intentos", f"Quedan {3 - intento} intentos")
 
 # Crear la ventana
 def ventanaLogin():
-    global entradaNombre, entradaContraseña, ventana
+    global botonLogin, botonRegistro, entradaNombre, entradaContraseña, ventana
     ventana = tk.Tk()
-    ventana.geometry("250x250")
+    ventana.geometry("300x250")
     ventana.title("Login")
 
     # Crear y posicionar los widgets
