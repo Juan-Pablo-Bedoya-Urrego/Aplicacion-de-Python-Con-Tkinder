@@ -4,7 +4,6 @@ from logica import *
 import ventanaLogin
 
 def confirmarRegistro():
-    # Aquí se asume que tienes una clase Logica que está correctamente implementada
     c = Logica(entradaNombre.get(), entradaContraseña.get())
     if not c.validarUserBD():
         if c.validarContraseña(entradaContraseñaConfirmar.get()):

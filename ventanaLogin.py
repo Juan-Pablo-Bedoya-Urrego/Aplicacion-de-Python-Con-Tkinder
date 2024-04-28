@@ -19,7 +19,6 @@ def CambioContraseña():
 def login():
     global intento
     intento += 1
-    # Aquí se asume que tienes una clase Logica que está correctamente implementada
     x = Logica(entradaNombre.get(), entradaContraseña.get())
     if x.validarLogin():
         messagebox.showinfo("Exito","Inicio de sesión exitoso")
@@ -35,14 +34,12 @@ def login():
         else:
             messagebox.showwarning("Intentos", f"Quedan {3 - intento} intentos")
 
-# Crear la ventana
 def ventanaLogin():
     global botonLogin, botonRegistro, entradaNombre, entradaContraseña, ventana
     ventana = tk.Tk()
     ventana.geometry("300x250")
     ventana.title("Login")
-
-    # Crear y posicionar los widgets
+    
     labelNombre = ttk.Label(ventana, text="User: ")
     labelNombre.grid(row=0, column=0, padx=(30, 0), pady=5)
 
