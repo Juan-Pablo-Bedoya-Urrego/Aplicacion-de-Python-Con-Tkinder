@@ -1,6 +1,6 @@
 from tkinter import ttk,messagebox, Menu
 import tkinter as tk
-from logica import Logica
+from src.logica.logica import Logica
 
 def principal():
     ventana = tk.Tk()

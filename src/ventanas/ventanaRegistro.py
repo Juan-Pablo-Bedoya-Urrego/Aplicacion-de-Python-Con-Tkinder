@@ -1,7 +1,7 @@
 from tkinter import ttk,messagebox, Menu
 import tkinter as tk
-from logica import *
-import ventanaLogin
+from src.logica.logica import *
+import src.ventanas.ventanaLogin as ventanaLogin
 
 def confirmarRegistro():
     c = Logica(entradaNombre.get(), entradaContraseña.get())

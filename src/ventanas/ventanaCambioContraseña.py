@@ -1,8 +1,8 @@
 from tkinter import ttk,messagebox, Menu
 import tkinter as tk
-from logica import *
-import ventanaRegistro 
-import ventanaLogin
+from src.logica.logica import *
+import src.ventanas.ventanaRegistro as ventanaRegistro 
+import src.ventanas.ventanaLogin as ventanaLogin
 
 def vRegistro():
     ventana.destroy()
@@ -22,8 +22,10 @@ def validarUser():
     if x.validarUserBD():
         print("se encontro")
         global entradaContraseña, entradaContraseñaConfirmar
+        
         botonValidarUsuario.grid_forget()
         botonRegistrarse.grid_forget()
+
         labelContraseña = ttk.Label(ventana, text="Password: ")
         labelContraseña.grid(row=1, column=0, padx=(30, 0), pady=5)
 
@@ -40,15 +42,11 @@ def validarUser():
         botonGuardar.grid(row=3, column=1, padx=(0, 0), pady=5)
     else:
         print("never papa")
-        botonRegistro()
+        botonRegistrarse.grid(row=2, column=1, padx=(0, 0), pady=5)
 
-def botonRegistro():
-    global botonRegistrarse
-    botonRegistrarse = ttk.Button(ventana, text="          Registrarse         ", command= vRegistro)
-    botonRegistrarse.grid(row=2, column=1, padx=(0, 0), pady=5)
 
 def ventanaCambio():
-    global ventana, entradaNombre, botonValidarUsuario
+    global ventana, entradaNombre, botonValidarUsuario, botonRegistrarse
     ventana = tk.Tk()
     ventana.geometry("300x250")
     ventana.title("Cambio Contraseña")
@@ -61,5 +59,10 @@ def ventanaCambio():
 
     botonValidarUsuario = ttk.Button(ventana, text="          Validar Usuario          ", command= validarUser)
     botonValidarUsuario.grid(row=1, column=1, padx=(0, 0), pady=5)
+
+    
+    botonRegistrarse = ttk.Button(ventana, text="          Registrarse         ", command= vRegistro)
+    botonRegistrarse.grid(row=2, column=1, padx=(0, 0), pady=5)
+    botonRegistrarse.grid_forget()
 
     ventana.mainloop()

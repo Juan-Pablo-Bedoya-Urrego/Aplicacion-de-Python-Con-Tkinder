@@ -1,3 +1,3 @@
-from ventanaLogin import *
+from src.ventanas.ventanaLogin import *
 
 x = ventanaLogin()

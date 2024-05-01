@@ -1,4 +1,4 @@
-from logicaBD import *
+from src.DataBase.logicaBD import *
 class Logica:
     def __init__(self, nombre, contraseña):
         self.nombre = nombre

@@ -1,9 +1,9 @@
 from tkinter import ttk,messagebox, Menu
 import tkinter as tk
-from logica import Logica
-from ventanaPrincipal import *
-import ventanaRegistro
-import ventanaCambioContraseña
+from src.logica.logica import Logica
+from src.ventanas.ventanaPrincipal import *
+import src.ventanas.ventanaRegistro as ventanaRegistro
+import src.ventanas.ventanaCambioContraseña as ventanaCambioContraseña
 
 ventana = None
 intento = 0
