@@ -20,7 +20,7 @@ def ventanaRegistro():
     global entradaNombre, entradaContraseña, entradaContraseñaConfirmar, ventana
     ventana = tk.Tk() 
     ventana.geometry("310x250")
-    ventana.title("Login Celador")
+    ventana.title("Registro")
 
     labelNombre = ttk.Label(ventana, text="User: ")
     labelNombre.grid(row=0, column=0, padx=(30, 0), pady=5)
@@ -40,7 +40,7 @@ def ventanaRegistro():
     entradaContraseñaConfirmar = ttk.Entry(ventana, width=18, justify=tk.LEFT)
     entradaContraseñaConfirmar.grid(row=2, column=1, padx=0, pady=5)
 
-    botonLogin = ttk.Button(ventana, text="          Registrar          ", command= confirmarRegistro)
+    botonLogin = ttk.Button(ventana, width=18, text="Registrar", command= confirmarRegistro)
     botonLogin.grid(row=3, column=1, padx=(0, 0), pady=5)
 
     ventana.mainloop()

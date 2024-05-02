@@ -17,6 +17,7 @@ def actualizarContraseña():
         ventanaLogin.ventanaLogin()
     else:
         messagebox.showwarning("Advertencia", "Las contraseñas no coinciden")
+
 def validarUser():
     x = Logica(entradaNombre.get(),"")
     if x.validarUserBD():
@@ -38,7 +39,7 @@ def validarUser():
         entradaContraseñaConfirmar = ttk.Entry(ventana, width=18, justify=tk.LEFT)
         entradaContraseñaConfirmar.grid(row=2, column=1, padx=0, pady=5)
 
-        botonGuardar = ttk.Button(ventana, text="Guardar Contraseña", command= actualizarContraseña)
+        botonGuardar = ttk.Button(ventana, width=18, text="Guardar Contraseña", command= actualizarContraseña)
         botonGuardar.grid(row=3, column=1, padx=(0, 0), pady=5)
     else:
         print("never papa")
@@ -57,11 +58,11 @@ def ventanaCambio():
     entradaNombre = ttk.Entry(ventana, width=18, justify=tk.LEFT)
     entradaNombre.grid(row=0, column=1, padx=0, pady=5)
 
-    botonValidarUsuario = ttk.Button(ventana, text="          Validar Usuario          ", command= validarUser)
+    botonValidarUsuario = ttk.Button(ventana, width=18, text="Validar Usuario", command= validarUser)
     botonValidarUsuario.grid(row=1, column=1, padx=(0, 0), pady=5)
 
     
-    botonRegistrarse = ttk.Button(ventana, text="          Registrarse         ", command= vRegistro)
+    botonRegistrarse = ttk.Button(ventana, width=18, text="Registrarse", command= vRegistro)
     botonRegistrarse.grid(row=2, column=1, padx=(0, 0), pady=5)
     botonRegistrarse.grid_forget()
 

@@ -1,7 +1,7 @@
 from tkinter import ttk,messagebox, Menu
 import tkinter as tk
 from src.logica.logica import Logica
-from src.ventanas.ventanaPrincipal import *
+import src.ventanas.ventanaPrincipal as ventanaPrincipal
 import src.ventanas.ventanaRegistro as ventanaRegistro
 import src.ventanas.ventanaCambioContraseña as ventanaCambioContraseña
 
@@ -23,7 +23,7 @@ def login():
     if x.validarLogin():
         messagebox.showinfo("Exito","Inicio de sesión exitoso")
         ventana.destroy()
-        principal()
+        ventanaPrincipal.principal()
     else:
         if intento >= 3:
             messagebox.showerror("Error", "Número máximo de intentos alcanzado")
@@ -56,6 +56,6 @@ def ventanaLogin():
     botonLogin.grid(row=2, column=0, padx=(30, 0), pady=5)
 
     botonRegistro = ttk.Button(ventana, text="Registro" , command=Registro)
-    botonRegistro.grid(row=2, column=1, padx=(30, 0), pady=5)
+    botonRegistro.grid(row=2, column=1, padx=(37, 0), pady=5)
 
     ventana.mainloop()
