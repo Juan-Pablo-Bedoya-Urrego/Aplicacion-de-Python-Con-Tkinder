@@ -1,23 +1,24 @@
 import pyodbc
 from tkinter import messagebox
 class BaseDeDatos: 
+    usuario = "Juan"
+    password = "123"
+    bd = "EntregaPyhton"
+    ip = "localhost"
+    puerto = "1433"
+
+    global Conexion 
+    Conexion = (
+        f"DRIVER={{ODBC Driver 17 for SQL Server}};"
+        f"SERVER={ip},{puerto};"
+        f"DATABASE={bd};"
+        f"UID={usuario};"
+        f"PWD={password};"
+    )
     @staticmethod
     def deleteVeto(placa):
-        usuario = "Juan"
-        password = "123"
-        bd = "EntregaPyhton"
-        ip = "localhost"
-        puerto = "1433"
-
-        cadenaConexion = (
-            f"DRIVER={{ODBC Driver 17 for SQL Server}};"
-            f"SERVER={ip},{puerto};"
-            f"DATABASE={bd};"
-            f"UID={usuario};"
-            f"PWD={password};"
-        )
         try:
-            conn = pyodbc.connect(cadenaConexion)
+            conn = pyodbc.connect(Conexion)
             cursor = conn.cursor()
             sql = "delete from placasVetadas where placa = ?"
             cursor.execute(sql,(placa))
@@ -27,24 +28,11 @@ class BaseDeDatos:
             messagebox.showinfo('Veto quitado' , 'El veto fue quitado con exito')
         except Exception as e:
             print(e)
-
+    
     @staticmethod
     def agregarVeto(placa):
-        usuario = "Juan"
-        password = "123"
-        bd = "EntregaPyhton"
-        ip = "localhost"
-        puerto = "1433"
-
-        cadenaConexion = (
-            f"DRIVER={{ODBC Driver 17 for SQL Server}};"
-            f"SERVER={ip},{puerto};"
-            f"DATABASE={bd};"
-            f"UID={usuario};"
-            f"PWD={password};"
-        )
         try:
-            conn = pyodbc.connect(cadenaConexion)
+            conn = pyodbc.connect(Conexion)
             cursor = conn.cursor()
             sql = "INSERT INTO placasVetadas VALUES (?)"
             cursor.execute(sql,(placa))
@@ -54,24 +42,11 @@ class BaseDeDatos:
             print("Guardado")
         except Exception as e:
             print(e)
-
+    
     @staticmethod
     def retornarVetadas():
-        usuario = "Juan"
-        password = "123"
-        bd = "EntregaPyhton"
-        ip = "localhost"
-        puerto = "1433"
-
-        cadenaConexion = (
-            f"DRIVER={{ODBC Driver 17 for SQL Server}};"
-            f"SERVER={ip},{puerto};"
-            f"DATABASE={bd};"
-            f"UID={usuario};"
-            f"PWD={password};"
-        )
         try:
-            conn = pyodbc.connect(cadenaConexion)
+            conn = pyodbc.connect(Conexion)
             cursor = conn.cursor()
             sql = "select placa from placasVetadas"
             cursor.execute(sql)
@@ -84,24 +59,11 @@ class BaseDeDatos:
             return placas
         except Exception as e:
             print(e)
-
+    
     @staticmethod
     def eliminarVehiculo(placa,tipo):
-        usuario = "Juan"
-        password = "123"
-        bd = "EntregaPyhton"
-        ip = "localhost"
-        puerto = "1433"
-
-        cadenaConexion = (
-            f"DRIVER={{ODBC Driver 17 for SQL Server}};"
-            f"SERVER={ip},{puerto};"
-            f"DATABASE={bd};"
-            f"UID={usuario};"
-            f"PWD={password};"
-        )
         try:
-            conn = pyodbc.connect(cadenaConexion)
+            conn = pyodbc.connect(Conexion)
             cursor = conn.cursor()
             if tipo == "Moto":
                 sql = "delete from moto where placa = ?"
@@ -116,24 +78,11 @@ class BaseDeDatos:
             return filas_afectadas > 0 
         except Exception as e:
             print(e)
-
+    
     @staticmethod
     def agregarVehiculo(placa,nombre,tipo):
-        usuario = "Juan"
-        password = "123"
-        bd = "EntregaPyhton"
-        ip = "localhost"
-        puerto = "1433"
-
-        cadenaConexion = (
-            f"DRIVER={{ODBC Driver 17 for SQL Server}};"
-            f"SERVER={ip},{puerto};"
-            f"DATABASE={bd};"
-            f"UID={usuario};"
-            f"PWD={password};"
-        )
         try:
-            conn = pyodbc.connect(cadenaConexion)
+            conn = pyodbc.connect(Conexion)
             cursor = conn.cursor()
             if tipo == "Moto":
                 sql = "INSERT INTO moto VALUES (?,?)"
@@ -147,25 +96,34 @@ class BaseDeDatos:
             print("Guardado")
         except Exception as e:
             print(e)
-
-
+    
+    @staticmethod
+    def buscarVehiculo(placa,tipo):
+        try:
+            conn = pyodbc.connect(Conexion)
+            cursor = conn.cursor()
+            if tipo == "Moto":
+                sql = "select * from moto where placa = ?"
+                cursor.execute(sql,(placa))
+            if tipo == "Carro":
+                sql = "select * from carro where placa = ?"
+                cursor.execute(sql,(placa))
+            resultado = cursor.fetchall()
+            cursor.close()
+            conn.close()
+            if resultado:
+                for resul in resultado:
+                    id, placaBD, nombre = resul
+                    messagebox.showinfo('Encontrada', f"La {tipo} fue encontrada con placas {placaBD}, propietario: {nombre}")
+            else:
+                messagebox.showerror('No encontrada', f"La {tipo} con placas {placa} no se encontro")
+        except Exception as e:
+            print(e)
+    
     @staticmethod   
     def agregarUsuario(nombre,contraseña):
-        usuario = "Juan"
-        password = "123"
-        bd = "EntregaPyhton"
-        ip = "localhost"
-        puerto = "1433"
-
-        cadenaConexion = (
-            f"DRIVER={{ODBC Driver 17 for SQL Server}};"
-            f"SERVER={ip},{puerto};"
-            f"DATABASE={bd};"
-            f"UID={usuario};"
-            f"PWD={password};"
-        )
         try:
-            conn = pyodbc.connect(cadenaConexion)
+            conn = pyodbc.connect(Conexion)
             cursor = conn.cursor()
             sql = "INSERT INTO usuarios VALUES (?,?)"
             cursor.execute(sql,(nombre,contraseña))
@@ -178,21 +136,8 @@ class BaseDeDatos:
     
     @staticmethod
     def buscarUsuario(nombre,contraseña):
-        usuario = "Juan"
-        password = "123"
-        bd = "EntregaPyhton"
-        ip = "localhost"
-        puerto = "1433"
-
-        cadenaConexion = (
-            f"DRIVER={{ODBC Driver 17 for SQL Server}};"
-            f"SERVER={ip},{puerto};"
-            f"DATABASE={bd};"
-            f"UID={usuario};"
-            f"PWD={password};"
-        )
         try:
-            conn = pyodbc.connect(cadenaConexion)
+            conn = pyodbc.connect(Conexion)
             cursor = conn.cursor()
             sql = "SELECT * FROM usuarios WHERE nombreUsuario = ? AND contraseñaUsuario = ?"
             cursor.execute(sql, (nombre, contraseña))
@@ -209,20 +154,8 @@ class BaseDeDatos:
     
     @staticmethod
     def buscarNombre(nombre):
-        usuario = "Juan"
-        password = "123"
-        bd = "EntregaPyhton"
-        ip = "localhost"
-        puerto = "1433"
-
-        cadenaConexion = (
-            f"DRIVER={{ODBC Driver 17 for SQL Server}};"
-            f"SERVER={ip},{puerto};"
-            f"DATABASE={bd};"
-            f"UID={usuario};"
-            f"PWD={password};")
         try:
-            conn = pyodbc.connect(cadenaConexion)
+            conn = pyodbc.connect(Conexion)
             cursor = conn.cursor()
             sql = "SELECT * FROM usuarios WHERE nombreUsuario = ?"
             cursor.execute(sql, (nombre))
@@ -239,20 +172,8 @@ class BaseDeDatos:
     
     @staticmethod
     def ActualizarContraseña(nombre,contraseña):
-        usuario = "Juan"
-        password = "123"
-        bd = "EntregaPyhton"
-        ip = "localhost"
-        puerto = "1433"
-
-        cadenaConexion = (
-            f"DRIVER={{ODBC Driver 17 for SQL Server}};"
-            f"SERVER={ip},{puerto};"
-            f"DATABASE={bd};"
-            f"UID={usuario};"
-            f"PWD={password};")
         try:
-            conn = pyodbc.connect(cadenaConexion)
+            conn = pyodbc.connect(Conexion)
             cursor = conn.cursor()
             sql = "update usuarios set contraseñaUsuario = ? where nombreUsuario = ?"
             cursor.execute(sql,(contraseña,nombre))

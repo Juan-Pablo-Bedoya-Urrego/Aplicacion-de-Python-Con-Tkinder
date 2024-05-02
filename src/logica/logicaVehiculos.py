@@ -37,3 +37,12 @@ class logicaGuardar:
         if c.eliminarVehiculo(self.placa,self.tipo):
             return True
         return False
+    
+    def buscarVehiculo(self):
+        c = BaseDeDatos
+        c.buscarVehiculo(self.placa,self.tipo)
+    
+    def verVetadas(self):
+        c = BaseDeDatos()
+        placasVetadas = c.retornarVetadas()
+        return placasVetadas

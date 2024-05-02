@@ -31,6 +31,7 @@ def login():
             botonLogin.grid_forget()
             botonCambio = ttk.Button(ventana, text="olvide mi contraseña" , command=CambioContraseña)
             botonCambio.grid(row=3, column=1, padx=(0, 0), pady=5)
+            intento = 0
         else:
             messagebox.showwarning("Intentos", f"Quedan {3 - intento} intentos")
 

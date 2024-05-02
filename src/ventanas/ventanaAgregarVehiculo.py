@@ -1,24 +1,26 @@
 from tkinter import ttk,messagebox, Menu
 import tkinter as tk
 from src.logica.logicaVehiculos import logicaGuardar
-import src.ventanas.ventanaPrincipal as ventanaPincipal
+from src.archivos.recibos import *
 
 def guardarVehiculo():
     x = logicaGuardar(entradaNombre.get(),entradaPlaca.get(),variableOpcion.get())
     if x.guardarVehiculo():
         messagebox.showerror('Placa vetada', 'Su placa a sido vetada del parquiadero')
+        entradaPlaca.delete(0, tk.END)
+        entradaNombre.delete(0, tk.END)
     else:
         messagebox.showinfo(f'{variableOpcion.get()} guardada' , f'Su {variableOpcion.get()} se guardo')
-
-def ventanaP():
-    ventana.destroy()
-    ventanaPincipal.principal()
+        archivo = crearRecivos(entradaNombre.get(),entradaPlaca.get(),variableOpcion.get())
+        archivo.crear()
+        entradaPlaca.delete(0, tk.END)
+        entradaNombre.delete(0, tk.END)
 
 def ventanaVehiculo():
     global ventana, entradaNombre, entradaPlaca, variableOpcion
     ventana = tk.Tk()
     ventana.geometry("300x250")
-    ventana.title("Cambio Contraseña")
+    ventana.title("Agregar vehiculo")
 
     labelNombre = ttk.Label(ventana, text="Placa: ")
     labelNombre.grid(row=0, column=0, padx=(30, 0), pady=5)
@@ -44,6 +46,3 @@ def ventanaVehiculo():
 
     botonGuardar = ttk.Button(ventana, width=18, text="Guardar", command=guardarVehiculo)
     botonGuardar.grid(row=3, column=1, padx=(0, 0), pady=5)
-
-    botonSalir = ttk.Button(ventana, width=18, text="salir", command=ventanaP)
-    botonSalir.grid(row=4, column=0, padx=(0, 0), pady=70)

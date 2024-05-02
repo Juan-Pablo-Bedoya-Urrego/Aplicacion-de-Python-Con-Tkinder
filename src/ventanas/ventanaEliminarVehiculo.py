@@ -1,18 +1,19 @@
 from tkinter import ttk,messagebox, Menu
 import tkinter as tk
 from src.logica.logicaVehiculos import *
-import src.ventanas.ventanaPrincipal as ventanaPincipal
+from src.archivos.recibos import *
 
 def eliminarVehiculo():
-    x = logicaGuardar("",entradaPlaca.get(),variableOpcion.get())
-    if x.eliminarVehiculo():
-        messagebox.showinfo('Eliminar' , f'La {variableOpcion.get()} se elimino correctamente')
-    else:
-        messagebox.showwarning('Advertencia' , 'Verificaque el tipo de vehiculo o la placa es mal escrita')
-
-def ventanaP():
-    ventana.destroy()
-    ventanaPincipal.principal()
+    salir = messagebox.askquestion("Salir", "¿Desea eliminar el vehiculo?")
+    if salir == "yes":    
+        x = logicaGuardar("",entradaPlaca.get(),variableOpcion.get())
+        if x.eliminarVehiculo():
+            messagebox.showinfo('Eliminar' , f'La {variableOpcion.get()} se elimino correctamente')
+            a = crearRecivos("",entradaPlaca.get(),variableOpcion.get())
+            a.eliminar()
+            entradaPlaca.delete(0, tk.END)
+        else:
+            messagebox.showwarning('Advertencia' , 'Verificaque el tipo de vehiculo o la placa es mal escrita')
 
 def ventanaEliminar():
     global ventana, entradaPlaca, variableOpcion
@@ -39,9 +40,4 @@ def ventanaEliminar():
     botonEliminar = ttk.Button(ventana, width= 18, text= "Eliminar", command= eliminarVehiculo)
     botonEliminar.grid(row=2, column=1, padx=(0, 0), pady=5)
 
-    botonSalir = ttk.Button(ventana, width=18, text="salir", command=ventanaP)
-    botonSalir.grid(row=4, column=0, padx=(0, 0), pady=70)
-
     ventana.mainloop()
-
-ventanaEliminar()
